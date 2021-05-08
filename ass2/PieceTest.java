@@ -1,11 +1,16 @@
-import junit.framework.TestCase;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /*
   Unit test for Piece class -- starter shell.
  */
-public class PieceTest extends TestCase {
+public class PieceTest{
 	// You can create data to be used in the your
 	// test cases like this. For each run of a test method,
 	// a new PieceTest object is created and setUp() is called
@@ -15,8 +20,9 @@ public class PieceTest extends TestCase {
 	// that can be used in tests.
 	private Piece pyr1, pyr2, pyr3, pyr4;
 	private Piece s, sRotated;
-	protected void setUp() throws Exception {
-		super.setUp();
+
+	@BeforeEach
+	public void setUp() {
 		
 		pyr1 = new Piece(Piece.PYRAMID_STR);
 		pyr2 = pyr1.computeNextRotation();
@@ -28,7 +34,7 @@ public class PieceTest extends TestCase {
 	}
 	
 	// Here are some sample tests to get you started
-	
+	@Test
 	public void testSampleSize() {
 		// Check size of pyr piece
 		assertEquals(3, pyr1.getWidth());
@@ -47,6 +53,7 @@ public class PieceTest extends TestCase {
 	
 	
 	// Test the skirt returned by a few pieces
+	@Test
 	public void testSampleSkirt() {
 		// Note must use assertTrue(Arrays.equals(... as plain .equals does not work
 		// right for arrays.
@@ -57,6 +64,7 @@ public class PieceTest extends TestCase {
 		assertTrue(Arrays.equals(new int[] {1, 0}, sRotated.getSkirt()));
 	}
 
+	@Test
 	public void testFastRotations() {
 		Piece p = new Piece("0 0 0 1 1 0 1 1");
 		Piece[] arr = Piece.getPieces();
@@ -75,14 +83,12 @@ public class PieceTest extends TestCase {
 
 	}
 
+	@Test
 	public void testException() {
-		String badInput = "01 1 1";
-		try {
-			Piece p = new Piece("01 1 1");
-			fail("Expected exception");
-		} catch (RuntimeException expect) {
-			assertEquals("Could not parse x,y string:" + badInput, expect.getMessage());
-		}
+		String badInput1 = "01 1 1";
+		String badInput2 = "-1 0 0 1";
+		assertThrows(RuntimeException.class, () -> { Piece p = new Piece(badInput1);});
+		assertThrows(RuntimeException.class, () -> { Piece p = new Piece(badInput2);});
 	}
 	
 	

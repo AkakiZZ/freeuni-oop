@@ -34,12 +34,21 @@ public class Piece {
 	 Makes its own copy of the array and the TPoints inside it.
 	*/
 	public Piece(TPoint[] points) {
-		this.body = Arrays.copyOf(points, points.length);
+		copyOfPoints(points);
 		this.next = null;
 		setWidthAndHeight();
 		setSkirt();
 	}
 
+	/**
+	 * Makes deep copy of points array
+	 */
+	private void copyOfPoints(TPoint[] points) {
+		body = new TPoint[points.length];
+		for (int i = 0; i < points.length; i++) {
+			body[i] = new TPoint(points[i]);
+		}
+	}
 
 	/**
 	 * Alternate constructor, takes a String with the x,y body points
