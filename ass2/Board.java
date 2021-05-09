@@ -254,6 +254,8 @@ public class Board	{
 	 See the overview docs.
 	*/
 	public void undo() {
+		if (committed) return;
+
 		committed = true;
 
 		int[] tempWidths = widths;
