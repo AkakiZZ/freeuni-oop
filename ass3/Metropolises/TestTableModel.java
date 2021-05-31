@@ -22,10 +22,8 @@ public class TestTableModel {
 
     @BeforeAll
     public void setup() throws SQLException, ClassNotFoundException, IOException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/metro_db", "root", "root");
-        LoadTestDatabase.resetMetropolisesTable(connection);
-        metropolisDAO = MetropolisDAO.getInstance(connection);
+        DatabaseConnection.getInstance().resetMetropolisesTable();
+        metropolisDAO = MetropolisDAO.getInstance(DatabaseConnection.getInstance().getConnection());
         model = new MetropolisAbstractTableModel(metropolisDAO);
         mumbai = new Metropolis("Mumbai","Asia",20400000);
         cairo = new Metropolis("Cairo", "Africa", 9000000);

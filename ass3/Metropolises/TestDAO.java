@@ -14,16 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestDAO {
-    Connection connection;
     MetropolisDAO metropolisDAO;
     Metropolis mumbai;
     Metropolis tokyo;
     @BeforeAll
     public void setup() throws SQLException, ClassNotFoundException, IOException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/metro_db", "root", "root");
-        LoadTestDatabase.resetMetropolisesTable(connection);
-        metropolisDAO = MetropolisDAO.getInstance(connection);
+        DatabaseConnection.getInstance().resetMetropolisesTable();
+        metropolisDAO = MetropolisDAO.getInstance(DatabaseConnection.getInstance().getConnection());
         mumbai = new Metropolis("Mumbai", "Asia", 20400000);
         tokyo = new Metropolis("Tokyo", "Asia", 20000000);
     }

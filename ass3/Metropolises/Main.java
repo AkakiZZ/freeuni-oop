@@ -130,9 +130,7 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/metro_db", "root", "root");
-        MetropolisDAO metropolisDAO = MetropolisDAO.getInstance(connection);
+        MetropolisDAO metropolisDAO = MetropolisDAO.getInstance(DatabaseConnection.getInstance().getConnection());
         Main m = new Main(metropolisDAO);
     }
 }
