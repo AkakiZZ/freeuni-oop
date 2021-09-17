@@ -1,0 +1,4 @@
+store\TestCart.class
+store\TestProduct.class
+login\TestAccountManager.class
+store\TestProductDAO.class
